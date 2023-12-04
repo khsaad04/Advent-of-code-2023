@@ -15,6 +15,7 @@ pub fn process_part2(input: &str) -> String {
     let result: i32 = input
         .lines()
         .map(|line| {
+            let line = parse_string(line);
             let v: Vec<_> = line.chars().filter(|chr| chr.is_numeric()).collect();
             format!("{}{}", v.first().unwrap(), v.last().unwrap())
                 .parse::<i32>()
@@ -22,6 +23,43 @@ pub fn process_part2(input: &str) -> String {
         })
         .sum();
     result.to_string()
+}
+
+fn parse_string(input: &str) -> String {
+    const POSSIBLE_VALUES: &[(&str, char); 18] = &[
+        ("one", '1'),
+        ("two", '2'),
+        ("three", '3'),
+        ("four", '4'),
+        ("five", '5'),
+        ("six", '6'),
+        ("seven", '7'),
+        ("eight", '8'),
+        ("nine", '9'),
+        ("1", '1'),
+        ("2", '2'),
+        ("3", '3'),
+        ("4", '4'),
+        ("5", '5'),
+        ("6", '6'),
+        ("7", '7'),
+        ("8", '8'),
+        ("9", '9'),
+    ];
+
+    let mut numbers = String::new();
+
+    for i in 0..input.len() {
+        let text = &input[i..];
+
+        for (ident, number) in POSSIBLE_VALUES.iter() {
+            if text.starts_with(ident) {
+                numbers.push(*number);
+            }
+        }
+    }
+
+    numbers
 }
 
 #[cfg(test)]
