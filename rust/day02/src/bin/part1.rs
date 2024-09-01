@@ -1,4 +1,4 @@
-use day1::process_part1;
+use day02::process_part1;
 use std::fs;
 
 fn main() {
